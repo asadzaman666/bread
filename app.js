@@ -12,7 +12,7 @@ app.use(express.json())
 app.use('/expenses', expensesRouter)
 
 const connectionString = process.env.APP_CONNECTION_STRING
-const app_port = process.env.APP_PORT || 4000
+const app_port = process.env.PORT || 5000
 
 mongoose
     .connect(connectionString, { 
@@ -21,4 +21,4 @@ mongoose
     .then(() => dblog('connected to mongodb'))
     .catch((err) => dblog('Error: ', err))
 
-app.listen(app_port, () => applog(`listening to.. ${app_port}`))
+app.listen(app_port, () => console.log(`listening to.. ${app_port}`))
