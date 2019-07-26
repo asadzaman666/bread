@@ -21,4 +21,4 @@ mongoose
     .then(() => dblog('connected to mongodb'))
     .catch((err) => dblog('Error: ', err))
 
-app.listen(app_port, () => console.log(`listening to.. ${app_port}`))
+app.listen(app_port, "0.0.0.0", () => console.log(`listening on.. ${app_port}`))
