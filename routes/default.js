@@ -1,10 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const dblog = require('debug')('dbmsg')
+// const dblog = require('debug')('dbmsg')
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-
 
 router.get('/', (req, res) => {
     res.send('<h1>Welcome to the rice fields . . .</h1>')
@@ -81,8 +80,6 @@ router.post('/token/extend', (req, res) => {
 
 // Creating User
 router.post('/signup', async (req, res) => {
-
-    // dblog('signup request: ', req.body)
     
     const saltRounds = 10;
 
@@ -118,8 +115,6 @@ router.post('/login', async (req, res) => {
                 password: 1
             }
         )
-
-        dblog('found user: ', user)
 
         let d = new Date()
         const content = {

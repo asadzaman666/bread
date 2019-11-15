@@ -1,4 +1,4 @@
-const dblog = require('debug')('mongo')
+// const dblog = require('debug')('mongo')
 const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
@@ -75,13 +75,7 @@ router.get('/month/:id', authenticateToken, async (req, res) => {
 
 // Create One
 router.post('/', authenticateToken, async (req, res) => {
-    console.clear()
-    dblog(req.body.expenses)
-    // const expense = new User({
-    //     date: Date.now(),
-    //     expenses: req.body.expenses,
-    //     notes: req.body.notes
-    // })
+
     let day
     if( !req.body.date ) {
          day = spacetime.now('Asia/Dhaka').format('iso-utc')
@@ -109,18 +103,6 @@ router.post('/', authenticateToken, async (req, res) => {
 
 // Updating One
 router.patch('/:id', authenticateToken, async (req, res) => {
-    console.clear()
-    dblog(req.body)
-
-    // if (req.body.date) {
-    //     res.expense.date = req.body.date
-    // }
-    // if (req.body.purpose) {
-    //     res.expense.purpose = req.body.purpose
-    // }
-    // if (req.body.amount) {
-    //     res.expense.amount = req.body.amount
-    // }
 
     try {
         let updatedExpense = await User.updateOne({

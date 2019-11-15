@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const dblog = require('debug')('mongo')
+// const dblog = require('debug')('mongo')
 
 const userSchema = new mongoose.Schema({
     username: {
