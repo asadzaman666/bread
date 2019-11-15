@@ -3,20 +3,20 @@
 
 ###### Get all the expenses
 
-**GET**  _/expenses_ 
+**GET**  _https://breadapp-test.herokuapp.com/expenses_ 
 
 ###### Create new expense
 
-**POST**  _/expenses_ 
+**POST**  _https://breadapp-test.herokuapp.com/expenses_ 
 
 ###### Get one expense
 
-**GET**  _/expenses/id_ 
+**GET**  _https://breadapp-test.herokuapp.com/expenses/id_ 
 
 ###### Update one expense 
 
-**PATCH**  _/expenses/id_
+**PATCH**  _https://breadapp-test.herokuapp.com/expenses/id_
 
 ###### Delete one expense 
 
-**DELETE**  _/expenses/id_ 
+**DELETE**  _https://breadapp-test.herokuapp.com/expenses/id_ 
