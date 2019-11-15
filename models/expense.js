@@ -1,10 +1,18 @@
-const mongoose = require('mongoose')
-const dblog = require('debug')('mongo')
+// const mongoose = require('mongoose')
 
-const expenseSchema = new mongoose.Schema({
-    date: Date,
-    expenses: [{ purpose: String, amount: Number }],
-    notes: String
-})
+// // const expenseSchema = new mongoose.Schema({
+// //     date: Date,
+// //     expenses: [{ purpose: String, amount: Number }],
+// //     notes: String
+// // })
 
-module.exports = mongoose.model('bread', expenseSchema)
+// const breadSchema = new mongoose.Schema({
+
+//             date: Date,
+//             purpose: String,
+//             amount: Number,
+//             notes: String
+
+// })
+
+// module.exports = mongoose.model('bread', breadSchema)

@@ -1,18 +1,22 @@
+require('dotenv').config()
 const mongoose = require('mongoose')
-const applog = require('debug')('bread')
-const dblog = require('debug')('mongo')
+const dblog = require('debug')('dbmsg')
 const express = require('express')
 const app = express()
 
-const expensesRouter = require('./routes/expenses')
-
-require('dotenv').config()
+const expensesRouter = require('./routes/bread-routes')
+const defaultRouter = require('./routes/default')
 
 app.use(express.json())
+app.use('/', defaultRouter)
 app.use('/expenses', expensesRouter)
 
 const connectionString = process.env.APP_CONNECTION_STRING
 const app_port = process.env.PORT || 5000
+
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 
 mongoose
     .connect(connectionString, { 
