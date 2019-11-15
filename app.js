@@ -1,6 +1,6 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
-const dblog = require('debug')('dbmsg')
+// const dblog = require('debug')('dbmsg')
 const express = require('express')
 const app = express()
 
@@ -22,7 +22,7 @@ mongoose
     .connect(connectionString, { 
         useNewUrlParser: true 
     })
-    .then(() => dblog('connected to mongodb'))
-    .catch((err) => dblog('Error: ', err))
+    .then(() => console.log('connected to mongodb'))
+    .catch((err) => console.log('Error: ', err))
 
 app.listen(app_port, "0.0.0.0", () => console.log(`listening on.. ${app_port}`))
