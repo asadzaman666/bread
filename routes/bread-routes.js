@@ -7,11 +7,9 @@ const jwt = require('jsonwebtoken')
 
 // Getting all
 router.get('/', authenticateToken, async (req, res) => {
-    // console.log(req.authenticatedUser)
 
     let day = spacetime.now('Asia/Dhaka')
 
-    console.log(`date: `, spacetime('2019-11-12T18:00:00.000Z', 'Asia/Dhaka').format('nice'));
     try {
         const user = await User.findById(req.authenticatedUser.id)
         res.status(200).json(user)
@@ -76,18 +74,13 @@ router.get('/month/:id', authenticateToken, async (req, res) => {
 // Create One
 router.post('/', authenticateToken, async (req, res) => {
 
-    let day
-    if( !req.body.date ) {
-         day = spacetime.now('Asia/Dhaka').format('iso-utc')
-    }
-
     try {
         const newExpense = await User.updateOne({
             "_id": req.authenticatedUser.id
         }, {
             "$push": {
                 "expenses": {
-                    date: day,
+                    date: req.body.date,
                     purpose: req.body.purpose,
                     amount: req.body.amount
                 }
@@ -102,14 +95,14 @@ router.post('/', authenticateToken, async (req, res) => {
 })
 
 // Updating One
-router.patch('/:id', authenticateToken, async (req, res) => {
+router.put('/:id', authenticateToken, async (req, res) => {
 
     try {
         let updatedExpense = await User.updateOne({
             "expenses._id": req.params.id,
         }, {
             "$set": {
-                "expenses.$.date": new Date(req.body.date),
+                "expenses.$.date": req.body.date,
                 "expenses.$.purpose": req.body.purpose,
                 "expenses.$.amount": req.body.amount
             }
@@ -195,13 +188,14 @@ async function getUser(req, res, next) {
 
 function authenticateToken(req, res, next) {
 
-    const authHeader = req.headers['authorization']
-
-    const token = authHeader && authHeader.split(' ')[1]
+    let token = req.headers.authorization.split(' ')[1]
 
     if (token == null) return res.sendStatus(401)
 
     jwt.verify(token, process.env.SECRET_ACCESS_TOKEN, (err, user) => {
+        console.log(err);
+        console.log(user);
+        
         if (err) return res.sendStatus(403)
 
         req.authenticatedUser = user

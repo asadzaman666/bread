@@ -18,7 +18,10 @@ const userSchema = new mongoose.Schema({
     },
     expenses: [
         {
-            date: Date,
+            date: {
+                type: Date,
+                default: Date.now()
+            },
             purpose: String,
             amount: Number,
         }
