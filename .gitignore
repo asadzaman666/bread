@@ -98,4 +98,7 @@ typings/
 # procfile
 procfile
 
+# vscode file
+/.vscode/
+
 # End of https://www.gitignore.io/api/node

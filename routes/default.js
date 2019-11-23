@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-
+    
     try {
         const user = await User.findOne({
             email: req.body.email,
@@ -21,18 +21,23 @@ router.post('/login', async (req, res) => {
             password: 1
         })
 
-        let d = new Date()
         const content = {
             id: user._id,
             // iat: Date.now()
+        }        
+
+        if(typeof(req.body.password)!== 'string') {
+            req.body.password = JSON.stringify(req.body.password)
         }
 
-        const match = await bcrypt.compare(JSON.stringify(req.body.password), user.password);
+        const match = await bcrypt.compare(req.body.password, user.password);
 
+        // console.log(user + ' ' + match);
+        
         if (user && match) {
 
             const accessToken = jwt.sign(content, process.env.SECRET_ACCESS_TOKEN, {
-                expiresIn: '1h'
+                expiresIn: '24h'
             })
             res.status(200).json({
                 accesToken: accessToken,
@@ -41,12 +46,12 @@ router.post('/login', async (req, res) => {
 
         } else {
             res.status(401).json({
-                message: 'Invalid credentials'
+                message: 'User & Pass didnt match'
             })
         }
 
     } catch (err) {
-        res.status(400).json({
+        res.status(500).json({
             message: err.message
         })
     }
@@ -65,7 +70,7 @@ router.get('/token/extend', (req, res) => {
             }
 
             const accessToken = jwt.sign(content, process.env.SECRET_ACCESS_TOKEN, {
-                expiresIn: '1h'
+                expiresIn: '24h'
             })
             res.status(200).json({
                 accesToken: accessToken,
@@ -80,19 +85,26 @@ router.get('/token/extend', (req, res) => {
 // Creating User
 router.post('/signup', async (req, res) => {
 
+
+    if(typeof(req.body.password)!== 'string') {
+        req.body.password = JSON.stringify(req.body.password)
+    }
+
     const saltRounds = 10;
 
     let breadUser = new User({
         username: req.body.username,
         email: req.body.email,
-        password: bcrypt.hashSync(JSON.stringify(req.body.password), saltRounds)
+        password: bcrypt.hashSync(req.body.password, saltRounds),
+        expenses: []
     });
 
     try {
-        console.log(breadUser);
-
         const newUser = await breadUser.save()
-        res.status(201).json(newUser)
+        res.status(201).json(
+            {message: 'User Created',
+            id: newUser._id
+        })
     } catch (err) {
         res.status(400).json({
             message: err.message

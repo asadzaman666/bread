@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken')
 // Getting all
 router.get('/', authenticateToken, async (req, res) => {
 
-    let day = spacetime.now('Asia/Dhaka')
+    // let day = spacetime.now('Asia/Dhaka')
 
     try {
         const user = await User.findById(req.authenticatedUser.id)
@@ -170,7 +170,7 @@ async function getUser(req, res, next) {
     let expense
     try {
         expense = await User.findById(req.params.id)
-        console.clear()
+
         if (expense == null) {
             return res.status(404).json({
                 message: 'No matched data found'
@@ -193,8 +193,6 @@ function authenticateToken(req, res, next) {
     if (token == null) return res.sendStatus(401)
 
     jwt.verify(token, process.env.SECRET_ACCESS_TOKEN, (err, user) => {
-        console.log(err);
-        console.log(user);
         
         if (err) return res.sendStatus(403)
 
