@@ -40,7 +40,7 @@ router.post('/login', async (req, res) => {
                 expiresIn: '48h'
             })
             res.status(200).json({
-                accesToken: accessToken,
+                accessToken: accessToken,
             })
 
 
@@ -73,7 +73,7 @@ router.get('/token/extend', (req, res) => {
                 expiresIn: '48h'
             })
             res.status(200).json({
-                accesToken: accessToken,
+                accessToken: accessToken,
             })
 
         } else {
