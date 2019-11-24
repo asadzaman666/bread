@@ -37,7 +37,7 @@ router.post('/login', async (req, res) => {
         if (user && match) {
 
             const accessToken = jwt.sign(content, process.env.SECRET_ACCESS_TOKEN, {
-                expiresIn: '24h'
+                expiresIn: '48h'
             })
             res.status(200).json({
                 accesToken: accessToken,
@@ -70,7 +70,7 @@ router.get('/token/extend', (req, res) => {
             }
 
             const accessToken = jwt.sign(content, process.env.SECRET_ACCESS_TOKEN, {
-                expiresIn: '24h'
+                expiresIn: '48h'
             })
             res.status(200).json({
                 accesToken: accessToken,
